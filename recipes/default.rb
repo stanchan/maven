@@ -25,12 +25,19 @@ include_recipe 'ark::default'
 
 mvn_version = node['maven']['version'].to_s
 
+if node['maven']['install_flavor'] = 'rpm'
+  package 'maven' do
+    action :install
+  end 
+  node.default['maven']['m2_home'] = '/usr/share/java/maven'
+else
 ark 'maven' do
   url      node['maven'][mvn_version]['url']
   checksum node['maven'][mvn_version]['checksum']
   home_dir node['maven']['m2_home']
   version  node['maven'][mvn_version]['version']
   append_env_path true
+  end
 end
 
 template '/etc/mavenrc' do
