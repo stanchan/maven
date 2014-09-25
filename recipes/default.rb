@@ -25,7 +25,7 @@ include_recipe 'ark::default'
 
 mvn_version = node['maven']['version'].to_s
 
-if node['maven']['install_flavor'] = 'rpm'
+if node['maven']['install_flavor'] == 'rpm'
   package 'maven' do
     action :install
   end 
